@@ -1,12 +1,11 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
+const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
@@ -19,7 +18,6 @@ client.connect()
     })
     .catch(err => console.error('Failed to connect to MongoDB', err));
 
-// Routes
 app.post('/api/weather', async (req, res) => {
     const { city } = req.body;
     if (!city) {
@@ -44,7 +42,6 @@ app.post('/api/weather', async (req, res) => {
     }
 });
 
-// Save the last search to MongoDB
 app.post('/api/save-search', async (req, res) => {
     const { city } = req.body;
 
@@ -64,7 +61,6 @@ app.post('/api/save-search', async (req, res) => {
     }
 });
 
-// Get the last search from MongoDB
 app.get('/api/get-last-search', async (req, res) => {
     try {
         const searches = db.collection('searches');
@@ -81,5 +77,4 @@ app.get('/api/get-last-search', async (req, res) => {
     }
 });
 
-// Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

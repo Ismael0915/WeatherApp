@@ -34,8 +34,8 @@ function displayWeather(data) {
     const tempDivInfo = document.getElementById('temp-div');
     const weatherInfoDiv = document.getElementById('weather-info');
     
-    document.getElementById('home-screen').style.display = 'none';
-    document.getElementById('temp-info-screen').style.display = 'block';
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('temp-screen').style.display = 'block';
 
     weatherInfoDiv.innerHTML = '';
     tempDivInfo.innerHTML = '';
@@ -76,6 +76,6 @@ document.getElementById('previous-search').addEventListener('click', function ()
 });
 
 document.getElementById('home-button').addEventListener('click', function () {
-    document.getElementById('temp-info-screen').style.display = 'none';
-    document.getElementById('home-screen').style.display = 'block';
+    document.getElementById('temp-screen').style.display = 'none';
+    document.getElementById('home').style.display = 'block';
 });

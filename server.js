@@ -1,14 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const fetch = require('node-fetch');
+const axios = require('axios'); 
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static('public'));
-
 const client = new MongoClient(process.env.MONGO_URI);
 let db;
 
@@ -27,9 +25,9 @@ app.post('/api/weather', async (req, res) => {
     try {
         const apiKey = process.env.API_KEY;
         const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-
-        const currentWeatherRes = await fetch(currentWeatherUrl);
-        const currentWeather = await currentWeatherRes.json();
+        
+        const currentWeatherResponse = await axios.get(currentWeatherUrl);
+        const currentWeather = currentWeatherResponse.data;
 
         if (currentWeather.cod === '404') {
             return res.status(404).json({ error: 'City not found' });
